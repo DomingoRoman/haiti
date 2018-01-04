@@ -1,0 +1,348 @@
+# Este script requiere la presencia de dos objetos:
+# a) Sound
+# b) TextGrid
+# Ambos corresponden a una palabra emitida por un sujeto
+
+# Este script genera la tabla de datos más general para cada palabra
+
+carpeta_tablas$ = chooseDirectory$("Escoge el directorio de TABLAS GENERAL...")
+
+sonido = selected("Sound")
+tgrid = selected("TextGrid")
+sonido$ = selected$("Sound")
+
+tipo_inform$ = left$(sonido$,3)
+select tgrid
+n_inter_tgr = Get number of intervals: 2
+
+if n_inter_tgr == 3
+	palabra$ = Get label of interval: 2, 2
+endif
+
+### extracción del número del informante (dos posibilidades:de uno o de dos dígitos)
+
+largo_palabra = length(palabra$)
+
+largo_nombre = length(sonido$)
+
+primer_guion = index(sonido$, "-")
+
+buscar_guion_nombre$ = left$(sonido$,6)
+
+ultimo$ = right$ (buscar_guion_nombre$,1)
+
+if ultimo$ == "-"
+	ene_info$ = mid$(buscar_guion_nombre$,5,1)
+else
+	ene_info$ = mid$(buscar_guion_nombre$,5,2)
+endif
+
+buscar_guion_sexo$ = left$(sonido$,8)
+
+## sexo
+buscar_guion_sexo$ = left$(sonido$,8)
+ultimo_sex$ = right$ (buscar_guion_sexo$,1)
+if ultimo_sex$ == "-"
+	sex_info$ = mid$(buscar_guion_sexo$,7,1)
+else
+	sex_info$ = mid$(buscar_guion_sexo$,8,1)
+endif
+
+select sonido
+plus tgrid
+
+form Lista de fenómenos
+comment casos de eRe
+	boolean r_ere
+	boolean r_fricativa
+	boolean r_aproximante
+	boolean r_ele_intervocalica
+	boolean r_ele_en_grupo_consonantico
+	boolean r_ele_final_silaba_o_palabra
+	boolean r_omitida_al_final_de_silaba_o_palabra
+	boolean r_omitida_en_grupo_consonantico
+	boolean esvarabatico_con_ere
+	boolean esvarabatico_con_ele
+comment casos de eRRe
+	boolean rr_erre
+	boolean rr_fricativa
+	boolean rr_ere
+	boolean rr_ele_inicial
+	boolean rr_ele_intervocalica
+comment Alargamiento
+	boolean erre_alargada
+	boolean emision_incomprensible
+endform
+
+select tgrid
+n  = Get number of intervals: 1
+for i to n
+    ini [i] = Get start time of interval: 1, i
+    fin [i] = Get end time of interval: 1, i
+endfor
+
+#	Número de sonidos en la tercera capa
+n_sonidos = Get number of points: 3
+
+#	Duración de la palabra
+fin = Get end time of interval: 2, 2
+ini = Get start time of interval: 2, 2
+dur = fin-ini
+
+#	Contar vocales en el estrato 3 para sílabas fonéticas
+
+vocA = Count points where: 3, "contains", "a"
+vocE = Count points where: 3, "contains", "e"
+vocI = Count points where: 3, "contains", "i"
+vocO = Count points where: 3, "contains", "o"
+vocU = Count points where: 3, "contains", "u"
+
+silFonet = vocA+vocE+vocI+vocO+vocU
+
+# 	velocidades fonética por sonidos y por sílaba
+velFonet =  n_sonidos/dur
+velSilFonet = silFonet/dur
+
+
+##############################################################
+##############################################################
+
+if palabra$ == "flor" or palabra$ == "tren" or palabra$ == "fax"
+	nsilab = 1
+	catego$ = "m"
+
+elsif palabra$ == "patrón" or palabra$ == "Patrón" or palabra$ == "patron" or palabra$ =="Patron"
+... or palabra$ == "abril" or palabra$ == "Abril" 
+... or palabra$ == "parrón" or palabra$ == "Parrón" or palabra$ == "parron" or palabra$ =="Parron"
+... or palabra$ == "pingpong" or palabra$ == "pinpon" or palabra$ =="ping-pong" or palabra$ == "Ping-Pong"
+... or palabra$ == "pinpón" or palabra$ == "Pinpón" or palabra$ == "Ping Pong" or palabra$ == "ping pong"
+... or palabra$ == "francés" or palabra$ == "frances" or palabra$ == "Frances" or palabra$ == "Francés"
+... or palabra$ == "vietnam" or palabra$ == "Vietnam" or palabra$ == "Vietnam"
+... or palabra$ == "reloj" or palabra$ == "Reloj" 
+... or palabra$ == "rincón" or palabra$ == "Rincón" or palabra$ == "rincon" or palabra$ == "Rincon"
+... or palabra$ == "ratón" or palabra$ == "Ratón" or palabra$ == "raton" or palabra$ == "Raton" 
+... or palabra$ == "anís" or palabra$ == "Anís"  or palabra$ == "Anis"  or palabra$ == "anis"
+... or palabra$ == "maní" or palabra$ == "Maní" or palabra$ == "Mani" or palabra$ == "mani"
+... or palabra$ == "haití" or palabra$ == "Haití"  or palabra$ == "haiti"  or palabra$ == "Haiti"
+... or palabra$ == "tambor" or palabra$ == "Tambor"
+... or palabra$ == "limón" or palabra$ == "Limón" or palabra$ == "Limon" or palabra$ == "limon"
+... or palabra$ == "pared" or palabra$ == "Pared"
+... or palabra$ == "melón" or palabra$ == "Melón" or palabra$ == "melon" or palabra$ == "Melon" 
+... or palabra$ == "jarrón"  or palabra$ == "Jarrón" or palabra$ == "jarrón" or palabra$ == "Jarron"
+... or palabra$ == "gritón" or palabra$ == "Gritón" or palabra$ == "griton" or palabra$ == "Griton"
+... or palabra$ == "marrón" or palabra$ == "Marrón" or palabra$ == "marron" or palabra$ == "Marron"
+... or palabra$ == "hostal" or palabra$ == "Hostal"
+... or palabra$ == "vapor" or palabra$ == "Vapor"
+... or palabra$ == "correr" or palabra$ == "Correr"
+... or palabra$ == "dormir" or palabra$ == "Dormir"
+... or palabra$ == "dragón" or palabra$ == "Dragón" or palabra$ == "dragon" or palabra$ == "Dragon"
+... or palabra$ == "ladrón" or palabra$ == "Ladrón" or palabra$ == "ladron" or palabra$ == "Ladron" 
+... or palabra$ == "bailar" or palabra$ == "Bailar"
+... or palabra$ == "turrón" or palabra$ == "Turrón" or palabra$ == "turron" or palabra$ == "Turron"
+... or palabra$ == "brasil" or palabra$ == "Brasil"
+... or palabra$ == "hurón"  or palabra$ == "Hurón" or palabra$ == "huron" or palabra$ == "Huron"
+... or palabra$ == "ají" or palabra$ == "Ají" or palabra$ == "aji" or palabra$ == "Aji"
+... or palabra$ == "canción" or palabra$ == "Canción" or palabra$ == "cancion" or palabra$ == "Cancion"
+... or palabra$ == "motel" or palabra$ == "Motel" 
+... or palabra$ == "mujer" or palabra$ == "Mujer"
+... or palabra$ == "arroz" or palabra$ == "Arroz"
+
+	nsilab = 2
+	catego$ = "a"
+
+
+elsif palabra$ == "preso" or palabra$ == "Preso"
+... or palabra$ == "Regla" or palabra$ == "regla"
+... or palabra$ == "Fútbol" or palabra$ == "fútbol"
+... or palabra$ == "Sopa" or palabra$ == "sopa"
+... or palabra$ == "Lepra" or palabra$ == "lepra"
+... or palabra$ == "Tenis" or palabra$ == "tenis"
+... or palabra$ == "Lápiz" or palabra$ == "lápiz"or palabra$ == "Lapiz" or palabra$ == "lapiz"
+... or palabra$ == "Griega" or palabra$ == "griega"
+... or palabra$ == "Casa" or palabra$ == "casa"
+... or palabra$ == "Mano" or palabra$ == "mano"
+... or palabra$ == "Brazo" or palabra$ == "brazo" or palabra$ == "Braso" or palabra$ == "braso"
+... or palabra$ == "Lata" or palabra$ == "lata"
+... or palabra$ == "Huevo" or palabra$ == "huevo"
+... or palabra$ == "Rancho" or palabra$ == "rancho"
+... or palabra$ == "Papas" or palabra$ == "papas"
+... or palabra$ == "Puerta" or palabra$ == "puerta"
+... or palabra$ == "Perro" or palabra$ == "perro"
+... or palabra$ == "Monstruo" or palabra$ == "monstruo"
+... or palabra$ == "cáncer" or palabra$ == "cancer"
+... or palabra$ == "Cáncer" or palabra$ == "Cancer"
+... or palabra$ == "Trago" or palabra$ == "trago"
+... or palabra$ == "Pera" or palabra$ == "pera"
+... or palabra$ == "Libro" or palabra$ == "libro"
+... or palabra$ == "Torre" or palabra$ == "torre"
+... or palabra$ == "Caja" or palabra$ == "caja"
+... or palabra$ == "Rueda" or palabra$ == "rueda"
+... or palabra$ == "Churro" or palabra$ == "churro"
+... or palabra$ == "Plata" or palabra$ == "plata"
+... or palabra$ == "Cable" or palabra$ == "cable"
+... or palabra$ == "Pollo" or palabra$ == "pollo"
+... or palabra$ == "Coro" or palabra$ == "coro"
+... or palabra$ == "Letras" or palabra$ == "letras"
+
+	nsilab = 2
+	catego$ = "g"
+
+
+elsif palabra$ == "Inscribir" or palabra$ == "inscribir" or palabra$ == "incribir"
+... or palabra$ == "Reunión" or palabra$ == "reunión" or palabra$ == "Reunion"  or palabra$ == "reunion"
+... or palabra$ == "Nacional" or palabra$ == "nacional"
+... or palabra$ == "Campeón" or palabra$ == "campeón" or palabra$ == "Campeon"  or palabra$ == "campeon"
+... or palabra$ == "Construcción" or palabra$ == "construcción" or palabra$ == "Construccion"  or palabra$ == "construccion"
+... or palabra$ == "Apretar"  or palabra$ == "apretar"
+... or palabra$ == "Azafrán" or palabra$ == "azafrán" or palabra$ == "Azafran"  or palabra$ == "azafran"
+... or palabra$ == "Elixir"  or palabra$ == "elixir"
+... or palabra$ == "Perejil"  or palabra$ == "perejil"
+... or palabra$ == "Español"  or palabra$ == "español"
+... or palabra$ == "Japonés"  or palabra$ == "japonés"
+... or palabra$ == "japonés"  or palabra$ == "japones"
+... or palabra$ == "Hervidor"  or palabra$ == "hervidor"
+... or palabra$ == "agresión"  or palabra$ == "Agresión"
+... or palabra$ == "Agresion"  or palabra$ == "agresion"
+... or palabra$ == "urinal"  or palabra$ == "Urinal"
+... or palabra$ == "Cereal"  or palabra$ == "cereal"
+... or palabra$ == "Tocador"  or palabra$ == "tocador"
+... or palabra$ == "Amarrar"  or palabra$ == "amarrar"
+
+	nsilab = 3
+	catego$ = "a"
+
+
+elsif palabra$ == "Águila" or palabra$ == "águila" or palabra$ == "aguila" or palabra$ == "Aguila"
+... or palabra$ == "Cráneo"  or palabra$ == "cráneo" or palabra$ == "Craneo"  or palabra$ == "craneo"
+... or palabra$ == "Ángulo"  or palabra$ == "ángulo" or palabra$ == "Angulo"  or palabra$ == "angulo"
+... or palabra$ == "Ídolo"  or palabra$ == "ídolo" or palabra$ == "Idolo"  or palabra$ == "idolo"
+... or palabra$ == "Cómodo"  or palabra$ == "cómodo"
+... or palabra$ == "México"  or palabra$ == "méxico"
+... or palabra$ == "Mexico"  or palabra$ == "mexico"
+
+	nsilab = 3
+	catego$ = "e"
+
+
+elsif palabra$ == "Frutilla" or palabra$ == "frutilla"
+... or palabra$ == "Almíbar"  or palabra$ == "almíbar"
+... or palabra$ == "almibar"  or palabra$ == "Almibar"
+... or palabra$ == "Cazuela"  or palabra$ == "cazuela"
+... or palabra$ == "Patrulla"  or palabra$ == "patrulla"
+... or palabra$ == "Tortuga"  or palabra$ == "tortuga"
+... or palabra$ == "Tijera"  or palabra$ == "tijera"
+... or palabra$ == "Tetera"  or palabra$ == "tetera"
+... or palabra$ == "Letrero"  or palabra$ == "letrero"
+... or palabra$ == "Cadáver"  or palabra$ == "cadáver" or palabra$ == "cadaver"  or palabra$ == "Cadaver"
+... or palabra$ == "Martillo"  or palabra$ == "martillo"
+... or palabra$ == "Huáscar"  or palabra$ == "huáscar" or palabra$ == "Huascar"  or palabra$ == "huascar"
+... or palabra$ == "Paleta"  or palabra$ == "paleta"
+... or palabra$ == "Ladrillo"  or palabra$ == "ladrillo"
+... or palabra$ == "Rodilla"  or palabra$ == "rodilla"
+... or palabra$ == "Comida"  or palabra$ == "comida"
+... or palabra$ == "Amarra"  or palabra$ == "amarra"
+... or palabra$ == "Rosario"  or palabra$ == "rosario"
+... or palabra$ == "Arriba"  or palabra$ == "arriba"
+... or palabra$ == "Marido"  or palabra$ == "marido"
+... or palabra$ == "Azúcar"  or palabra$ == "azúcar" or palabra$ == "Azucar"  or palabra$ == "azucar"
+
+	nsilab = 3
+	catego$ = "g"
+
+
+elsif palabra$ == "Televisor" or palabra$ == "televisor"
+
+	nsilab = 4
+	catego$ = "a"
+
+
+elsif palabra$ == "Depósito" or palabra$ == "depósito" or palabra$ == "Deposito"  or palabra$ == "deposito"
+... or palabra$ == "Teléfono" or palabra$ == "teléfono" or palabra$ == "Telefono"  or palabra$ == "telefono"
+... or palabra$ == "Atlántico" or palabra$ == "atlántico" or palabra$ == "Atlantico" or palabra$ == "atlantico"
+
+	nsilab = 4
+	catego$ = "e"
+
+
+elsif palabra$ == "Taca Taca" or palabra$ == "TacaTaca" or palabra$ == "Taca-Taca"  or palabra$ == "taca taca"
+... or palabra$ == "tacataca" or palabra$ == "taca-taca"
+... or palabra$ == "zanahoria" or palabra$ == "Zanahoria"
+... or palabra$ == "Instrumentos" or palabra$ == "instrumentos" or palabra$ == "Intrumentos"  or palabra$ == "intrumentos"
+... or palabra$ == "Resfriado" or palabra$ == "resfriado"
+... or palabra$ == "Astronauta"  or palabra$ == "astronauta"
+
+	nsilab = 4
+	catego$ = "g"
+
+
+elsif palabra$ == "Refrigerador" or palabra$ == "refrigerador"
+	nsilab = 5
+	catego$ = "a"
+
+
+else
+  catego$ = "otro"
+	nsilab= 0
+
+endif
+
+##############################################################
+##############################################################
+
+
+
+
+# 	Crea tabla de datos
+tabla = Create Table with column names: "tabla", n, "informante sexo tipo palabra duracion 
+...n_sil_fonol categoria
+... silFonet velFonet velSilFonet 
+... r_ere r_fricativa r_aproximante r_ele_intervocal 
+... r_ele_grupo r_ele_final r_omision_final 
+... r_omision_grupo ere_esv_ere ere_esv_ele 
+... rr_erre rr_fricativa rr_ere 
+... rr_ele_inicial rr_ele_intervocal 
+... rr_larga emision_incompren"
+
+
+#	Inserta valores en la tabla de datos
+
+select tabla
+Set string value: 1, "informante", ene_info$
+Set string value: 1, "sexo", sex_info$
+Set string value: 1, "tipo", tipo_inform$
+Set string value: 1, "palabra", palabra$
+Set numeric value: 1, "duracion", dur
+Set numeric value: 1, "n_sil_fonol", nsilab
+Set string value: 1, "categoria", catego$
+Set numeric value: 1, "silFonet", silFonet
+Set numeric value: 1, "velFonet", velFonet
+Set numeric value: 1, "velSilFonet", velSilFonet
+Set numeric value: 1, "r_ere", r_ere
+Set numeric value: 1, "r_fricativa", r_fricativa
+Set numeric value: 1, "r_aproximante", r_aproximante
+Set numeric value: 1, "r_ele_intervocal", r_ele_intervocalica
+Set numeric value: 1, "r_ele_grupo", r_ele_en_grupo_consonantico
+Set numeric value: 1, "r_ele_final", r_ele_final_silaba_o_palabra
+Set numeric value: 1, "r_omision_final", r_omitida_al_final_de_silaba_o_palabra
+Set numeric value: 1, "r_omision_grupo", r_omitida_en_grupo_consonantico
+Set numeric value: 1, "ere_esv_ere", esvarabatico_con_ere
+Set numeric value: 1, "ere_esv_ele", esvarabatico_con_ele
+Set numeric value: 1, "rr_erre", rr_erre
+Set numeric value: 1, "rr_fricativa", rr_fricativa
+Set numeric value: 1, "rr_ere", rr_ere
+Set numeric value: 1, "rr_ele_inicial", rr_ele_inicial
+Set numeric value: 1, "rr_ele_intervocal", rr_ele_intervocalica
+Set numeric value: 1, "rr_larga", erre_alargada
+Set numeric value: 1, "emision_incompren", emision_incomprensible
+
+select tabla
+
+extensionTabla$ = ".Table"
+
+nombreTabla$= sonido$ + extensionTabla$
+
+Save as comma-separated file: "'carpeta_tablas$'/'nombreTabla$'"
+
+Remove
+select sonido
+plus tgrid
