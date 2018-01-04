@@ -1,0 +1,36 @@
+form datos del informante
+
+real id
+word iniciales
+choice sexo
+	option hombre
+	option mujer
+real nacimiento 19
+choice nacionalidad 2
+	option chile
+	option haití
+
+optionmenu años_reside_en_Chile: 1
+	option menos_de_1_año
+	option entre_1_y_2_años
+	option entre_2_y_3_años
+	option entre_3_y_5_años
+	option entre_5_y_10_años
+	option toda_la_vida
+
+comment lengua materna
+	boolean español	
+	boolean creol
+	boolean francés
+	boolean inglés
+	boolean otro	
+			
+choice nivel_educacional 1
+	option básica_incompleta
+	option básica_completa
+	option media_incompleta
+	option media_completa
+	option superior_incompleta
+	option superior_completa
+sentence ocupacion trabajo
+endform
