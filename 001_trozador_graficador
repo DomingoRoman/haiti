@@ -21,13 +21,14 @@
 #
 # Copyright 2017: Domingo Román, Laboratorio de Fonética USACH.
 ######################################################################
-
-
+### 001_trozador_graficador ###
+######################################################################
 #####
 ##### OBSERVACIONES AL FUNCIONAMIENTO
 #####
 # Esta versión del script requiere cambiar el color del oscilograma
-# manualmente. para el grupo de estudio se prefiere AZUL, en tanto
+# manualmente.
+# Para el grupo de estudio se prefiere AZUL, en tanto
 # que para el grupo control, VERDE
 # Esto se realiza en la línea 154
 
@@ -72,9 +73,10 @@ for i to n
     fin [i] = Get end time of interval: 1, i
 endfor
 
+# SUSPENSION 4 de enero
 # 	Crea tabla de datos
-tabla = Create Table with column names: "tabla", n, "informante tipo sexo palabra duracion silFonet velFonet 
-... velSilFonet"
+#tabla = Create Table with column names: "tabla", n, "informante tipo sexo palabra duracion silFonet velFonet 
+#... velSilFonet"
 
 
 for i to n
@@ -97,9 +99,9 @@ for i to n
 			name$ = Rename: tipo_inform_2$+"-"+informante$+"-"+sexo_inform2$+"-"+palabra$
 
 #	Duración de la palabra
-			fin = Get end time of interval: 2, 2
-			ini = Get start time of interval: 2, 2
-			dur = fin-ini
+#			fin = Get end time of interval: 2, 2
+#			ini = Get start time of interval: 2, 2
+#			dur = fin-ini
 
 #	Contar vocales en el estrato 3 para sílabas fonéticas
 
