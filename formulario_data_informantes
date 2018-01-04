@@ -1,15 +1,17 @@
+
+
 form datos del informante
 
-real id
-word iniciales
-choice sexo
+real id 1
+word iniciales hgfd
+choice sexo 1
 	option hombre
 	option mujer
-real nacimiento 19
+real nacimiento 1999
 choice nacionalidad 2
 	option chile
 	option haití
-
+	
 optionmenu años_reside_en_Chile: 1
 	option menos_de_1_año
 	option entre_1_y_2_años
@@ -17,8 +19,8 @@ optionmenu años_reside_en_Chile: 1
 	option entre_3_y_5_años
 	option entre_5_y_10_años
 	option toda_la_vida
-
-comment lengua materna
+	
+comment Lengua materna
 	boolean español	
 	boolean creol
 	boolean francés
@@ -34,3 +36,22 @@ choice nivel_educacional 1
 	option superior_completa
 sentence ocupacion trabajo
 endform
+
+edad = 2018-nacimiento
+
+Create Table with column names: "table", 1, "id iniciales sexo edad nacionalidad tiempo_residencia español creol francés inglés otro nivel_educacional ocupacion"
+Set numeric value: 1, "id", id
+Set string value: 1, "iniciales", iniciales$
+Set numeric value: 1, "sexo", sexo
+Set numeric value: 1, "edad", edad
+Set numeric value: 1, "nacionalidad", nacionalidad
+Set numeric value: 1, "tiempo_residencia", años_reside_en_Chile
+Set numeric value: 1, "español", español
+Set numeric value: 1, "creol", creol
+Set numeric value: 1, "francés", francés
+Set numeric value: 1, "inglés", inglés
+Set numeric value: 1, "otro", otro
+Set numeric value: 1, "nivel_educacional", nivel_educacional
+Set string value: 1, "ocupacion", ocupacion$
+
+pause Guardar la tabla
