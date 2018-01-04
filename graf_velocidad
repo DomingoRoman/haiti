@@ -1,0 +1,124 @@
+# Script en Praat
+# Laboratorio de Fonética USACH 2017
+# Script realizado para el estudio 
+# Dificultades fonéticas de la pronunciación de español por haitianos
+#
+# Este script es software libre: puede ser distribuido
+# y/o modificado bajo los términos de la licencia
+# GNU General Public License publicada por la Free Software
+# Foundation, ya sea en su versión 3 o (según se prefiera)
+# cualquier versión posterior.
+#
+# Este script se distribuye con la intención de que sea útil,
+# pero SIN GARANTÍA ALGUNA; ni siquiera con la garantía
+# implícita de COMERCIABILIDAD o de PROPIEDAD PARA UN FIN
+# PARTICULAR. Más detalles pueden encontrarse en el texto de
+# la GNU General Public License.
+#
+# El script debería haber sido distribuido con una copia de la
+# GNU General Public License. Si no, este puede encontrarse en
+# <http://www.gnu.org/licenses/>.
+#
+# Copyright 2017: Domingo Román, Laboratorio de Fonética USACH.
+#############
+##
+##
+## Grafica velocidad (fonemas / segundo) vs. número de sílabas por palabra
+#############
+
+
+tablaDatos = selected("Table")
+
+
+tabla_sil_1 = Extract rows where column (number): "silFonet", "equal to", 1
+select tablaDatos
+tabla_sil_2 = Extract rows where column (number): "silFonet", "equal to", 2
+select tablaDatos
+tabla_sil_3 = Extract rows where column (number): "silFonet", "equal to", 3
+select tablaDatos
+tabla_sil_4 = Extract rows where column (number): "silFonet", "equal to", 4
+
+select tabla_sil_1
+n_tabla_sil_1 = Get number of rows
+ene_sil_1$ = string$(n_tabla_sil_1)
+x_tabla_sil_1 = Get mean: "velFonet"
+
+select tabla_sil_2
+n_tabla_sil_2 = Get number of rows
+ene_sil_2$ = string$(n_tabla_sil_2)
+x_tabla_sil_2 = Get mean: "velFonet"
+
+select tabla_sil_3
+n_tabla_sil_3 = Get number of rows
+ene_sil_3$ = string$(n_tabla_sil_3)
+x_tabla_sil_3 = Get mean: "velFonet"
+
+select tabla_sil_4
+n_tabla_sil_4 = Get number of rows
+ene_sil_4$ = string$(n_tabla_sil_4)
+x_tabla_sil_4 = Get mean: "velFonet"
+
+
+select tabla_sil_1
+plus tabla_sil_2
+plus tabla_sil_3
+plus tabla_sil_4
+
+tablaDatos = Append
+
+val_max_vel_fonet = Get maximum: "velFonet"
+
+if val_max_vel_fonet > 15
+	val_max_graf_fonet = 20
+else 
+	val_max_graf_fonet = 15
+endif
+
+
+
+n_total_de_casos = n_tabla_sil_4+n_tabla_sil_3+n_tabla_sil_2+n_tabla_sil_1
+
+n_total_casos$ =string$(n_total_de_casos)
+
+
+Erase all
+
+Select outer viewport: 0.5, 6, 0.5, 5.5
+
+Blue
+
+select tablaDatos
+
+Scatter plot (mark): "silFonet", 0, 5, "velFonet",0, val_max_graf_fonet, 1, "no", "+"
+Paint circle (mm): "blue", 1, x_tabla_sil_1, 2.5
+Paint circle (mm): "blue", 2, x_tabla_sil_2, 2.5
+Paint circle (mm): "blue", 3, x_tabla_sil_3, 2.5
+Paint circle (mm): "blue", 4, x_tabla_sil_4, 2.5
+
+Draw inner box
+One mark bottom: 1, "yes", "yes", "no", ""
+One mark bottom: 2, "yes", "yes", "no", ""
+One mark bottom: 3, "yes", "yes", "no", ""
+One mark bottom: 4, "yes", "yes", "no", ""
+Marks left every: 1, 1, "yes", "yes", "yes"
+Text top: "yes", "Número de casos total = 'n_total_casos$'"
+Text bottom: "yes", "Número de sílabas fonéticas de la palabra"
+Text left: "yes", "Velocidad (fonemas por segundo)"
+One mark top: 1, "no", "yes", "no", "( n = 'ene_sil_1$')"
+One mark top: 2, "no", "yes", "no", "( n = 'ene_sil_2$')"
+One mark top: 3, "no", "yes", "no", "( n = 'ene_sil_3$')"
+One mark top: 4, "no", "yes", "no", "( n = 'ene_sil_4$')"
+
+Select outer viewport: 0.5, 5.44, 0.5, 5.5
+
+pause Guarde el arhivo gráfico
+
+select tabla_sil_1
+plus tabla_sil_2
+plus tabla_sil_3
+plus tabla_sil_4
+Remove
+
+select tablaDatos
+
+pause Guarde tabla de datos
