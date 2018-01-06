@@ -28,97 +28,182 @@
 
 
 tablaDatos = selected("Table")
-
-
-tabla_sil_1 = Extract rows where column (number): "silFonet", "equal to", 1
-select tablaDatos
-tabla_sil_2 = Extract rows where column (number): "silFonet", "equal to", 2
-select tablaDatos
-tabla_sil_3 = Extract rows where column (number): "silFonet", "equal to", 3
-select tablaDatos
-tabla_sil_4 = Extract rows where column (number): "silFonet", "equal to", 4
-
-select tabla_sil_1
-n_tabla_sil_1 = Get number of rows
-ene_sil_1$ = string$(n_tabla_sil_1)
-x_tabla_sil_1 = Get mean: "velFonet"
-
-select tabla_sil_2
-n_tabla_sil_2 = Get number of rows
-ene_sil_2$ = string$(n_tabla_sil_2)
-x_tabla_sil_2 = Get mean: "velFonet"
-
-select tabla_sil_3
-n_tabla_sil_3 = Get number of rows
-ene_sil_3$ = string$(n_tabla_sil_3)
-x_tabla_sil_3 = Get mean: "velFonet"
-
-select tabla_sil_4
-n_tabla_sil_4 = Get number of rows
-ene_sil_4$ = string$(n_tabla_sil_4)
-x_tabla_sil_4 = Get mean: "velFonet"
-
-
-select tabla_sil_1
-plus tabla_sil_2
-plus tabla_sil_3
-plus tabla_sil_4
-
-tablaDatos = Append
-
 val_max_vel_fonet = Get maximum: "velFonet"
 
-if val_max_vel_fonet > 15
+if val_max_vel_fonet > 16
 	val_max_graf_fonet = 20
 else 
 	val_max_graf_fonet = 15
 endif
 
+tablaEst = Extract rows where column (text): "tipo", "is equal to", "est"
+select tablaDatos
+tablaCon =  Extract rows where column (text): "tipo", "is equal to", "con"
 
+select tablaEst
 
-n_total_de_casos = n_tabla_sil_4+n_tabla_sil_3+n_tabla_sil_2+n_tabla_sil_1
+est_tabla_sil_1 = Extract rows where column (number): "silFonet", "equal to", 1
+select tablaEst
+est_tabla_sil_2 = Extract rows where column (number): "silFonet", "equal to", 2
+select tablaEst
+est_tabla_sil_3 = Extract rows where column (number): "silFonet", "equal to", 3
+select tablaEst
+est_tabla_sil_4 = Extract rows where column (number): "silFonet", "equal to", 4
 
-n_total_casos$ =string$(n_total_de_casos)
+select est_tabla_sil_1
+est_n_tabla_sil_1 = Get number of rows
+est_ene_sil_1$ = string$(est_n_tabla_sil_1)
+est_x_tabla_sil_1 = Get mean: "velFonet"
 
+select est_tabla_sil_2
+est_n_tabla_sil_2 = Get number of rows
+est_ene_sil_2$ = string$(est_n_tabla_sil_2)
+est_x_tabla_sil_2 = Get mean: "velFonet"
+
+select est_tabla_sil_3
+est_n_tabla_sil_3 = Get number of rows
+est_ene_sil_3$ = string$(est_n_tabla_sil_3)
+est_x_tabla_sil_3 = Get mean: "velFonet"
+
+select est_tabla_sil_4
+est_n_tabla_sil_4 = Get number of rows
+est_ene_sil_4$ = string$(est_n_tabla_sil_4)
+est_x_tabla_sil_4 = Get mean: "velFonet"
+
+select est_tabla_sil_1
+plus est_tabla_sil_2
+plus est_tabla_sil_3
+plus est_tabla_sil_4
+est_tablaDatos = Append
+
+# enes
+
+est_n_total_de_casos = est_n_tabla_sil_4+est_n_tabla_sil_3+est_n_tabla_sil_2+est_n_tabla_sil_1
+est_n_total_casos$ =string$(est_n_total_de_casos)
+
+Select inner viewport: 1.03, 5.53, 1, 5
 
 Erase all
 
-Select outer viewport: 0.5, 6, 0.5, 5.5
-
 Blue
 
-select tablaDatos
+select est_tablaDatos
 
 Scatter plot (mark): "silFonet", 0, 5, "velFonet",0, val_max_graf_fonet, 1, "no", "+"
-Paint circle (mm): "blue", 1, x_tabla_sil_1, 2.5
-Paint circle (mm): "blue", 2, x_tabla_sil_2, 2.5
-Paint circle (mm): "blue", 3, x_tabla_sil_3, 2.5
-Paint circle (mm): "blue", 4, x_tabla_sil_4, 2.5
-
-Draw inner box
+Paint circle (mm): "blue", 1, est_x_tabla_sil_1, 2.5
+Paint circle (mm): "blue", 2, est_x_tabla_sil_2, 2.5
+Paint circle (mm): "blue", 3, est_x_tabla_sil_3, 2.5
+Paint circle (mm): "blue", 4, est_x_tabla_sil_4, 2.5
+Select inner viewport: 1, 5.5, 1, 5
 One mark bottom: 1, "yes", "yes", "no", ""
 One mark bottom: 2, "yes", "yes", "no", ""
 One mark bottom: 3, "yes", "yes", "no", ""
 One mark bottom: 4, "yes", "yes", "no", ""
 Marks left every: 1, 1, "yes", "yes", "yes"
-Text top: "yes", "Número de casos total = 'n_total_casos$'"
 Text bottom: "yes", "Número de sílabas fonéticas de la palabra"
 Text left: "yes", "Velocidad (fonemas por segundo)"
-One mark top: 1, "no", "yes", "no", "( n = 'ene_sil_1$')"
-One mark top: 2, "no", "yes", "no", "( n = 'ene_sil_2$')"
-One mark top: 3, "no", "yes", "no", "( n = 'ene_sil_3$')"
-One mark top: 4, "no", "yes", "no", "( n = 'ene_sil_4$')"
 
-Select outer viewport: 0.5, 5.44, 0.5, 5.5
+select est_tabla_sil_1
+plus est_tabla_sil_2
+plus est_tabla_sil_3
+plus est_tabla_sil_4
+
+pause 1
+Remove
+
+select tablaCon
+
+con_tabla_sil_1 = Extract rows where column (number): "silFonet", "equal to", 1
+select tablaCon
+con_tabla_sil_2 = Extract rows where column (number): "silFonet", "equal to", 2
+select tablaCon
+con_tabla_sil_3 = Extract rows where column (number): "silFonet", "equal to", 3
+select tablaCon
+con_tabla_sil_4 = Extract rows where column (number): "silFonet", "equal to", 4
+
+select con_tabla_sil_1
+con_n_tabla_sil_1 = Get number of rows
+con_ene_sil_1$ = string$(con_n_tabla_sil_1)
+con_x_tabla_sil_1 = Get mean: "velFonet"
+
+select con_tabla_sil_2
+con_n_tabla_sil_2 = Get number of rows
+con_ene_sil_2$ = string$(con_n_tabla_sil_2)
+con_x_tabla_sil_2 = Get mean: "velFonet"
+
+select con_tabla_sil_3
+con_n_tabla_sil_3 = Get number of rows
+con_ene_sil_3$ = string$(con_n_tabla_sil_3)
+con_x_tabla_sil_3 = Get mean: "velFonet"
+
+select con_tabla_sil_4
+con_n_tabla_sil_4 = Get number of rows
+con_ene_sil_4$ = string$(con_n_tabla_sil_4)
+con_x_tabla_sil_4 = Get mean: "velFonet"
+
+
+select con_tabla_sil_1
+plus con_tabla_sil_2
+plus con_tabla_sil_3
+plus con_tabla_sil_4
+
+con_tablaDatos = Append
+
+con_val_max_vel_fonet = Get maximum: "velFonet"
+
+con_n_total_de_casos = con_n_tabla_sil_4+con_n_tabla_sil_3+con_n_tabla_sil_2+con_n_tabla_sil_1
+
+con_n_total_casos$ =string$(con_n_total_de_casos)
+
+
+
+#### Diferencias
+#
+#
+#
+
+delta_4_s = con_x_tabla_sil_4-est_x_tabla_sil_4
+delta_3_s = con_x_tabla_sil_3-est_x_tabla_sil_3
+delta_2_s = con_x_tabla_sil_2-est_x_tabla_sil_2
+delta_1_s = con_x_tabla_sil_1-est_x_tabla_sil_1
+
+
+Red
+
+select con_tablaDatos
+
+Select inner viewport: 0.97, 5.47, 1, 5
+
+Scatter plot (mark): "silFonet", 0, 5, "velFonet",0, val_max_graf_fonet, 1, "no", "o"
+pause 2
+
+Paint circle (mm): "red", 1, con_x_tabla_sil_1, 2.5
+Paint circle (mm): "red", 2, con_x_tabla_sil_2, 2.5
+Paint circle (mm): "red", 3, con_x_tabla_sil_3, 2.5
+Paint circle (mm): "red", 4, con_x_tabla_sil_4, 2.5
+
+pause 3
+
+Select inner viewport: 1, 5.5, 1, 5
+Draw inner box
+
+Text top: "yes", "Casos estudio = 'est_n_total_casos$'; control ='con_n_total_casos$'"
+One mark top: 1, "no", "yes", "no", "('est_ene_sil_1$'/'con_ene_sil_1$')"
+One mark top: 2, "no", "yes", "no", "('est_ene_sil_2$'/'con_ene_sil_2$')"
+One mark top: 3, "no", "yes", "no", "('est_ene_sil_3$'/'con_ene_sil_3$')"
+One mark top: 4, "no", "yes", "no", "('est_ene_sil_4$'/'con_ene_sil_4$')"
 
 pause Guarde el arhivo gráfico
 
-select tabla_sil_1
-plus tabla_sil_2
-plus tabla_sil_3
-plus tabla_sil_4
+select con_tabla_sil_1
+plus con_tabla_sil_2
+plus con_tabla_sil_3
+plus con_tabla_sil_4
 Remove
 
-select tablaDatos
 
+Select outer viewport: 0.4, 5.5, 0.6, 5.4
+
+
+writeInfoLine: delta_4_s,tab$,delta_3_s,tab$,delta_2_s,tab$,delta_1_s
 pause Guarde tabla de datos
