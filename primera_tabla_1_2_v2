@@ -30,6 +30,10 @@
 # manualmente. para el grupo de estudio se prefiere AZUL, en tanto
 # que para el grupo control, VERDE
 # Esto se realiza en la línea 154
+# Este script genera los audios y los TextGrid de cada palabra
+# y las primeras tablas de datos para análisis del pilotaje.
+#
+
 
 directorio$ = chooseDirectory$: "Elige la carpeta para los archivos"
 
