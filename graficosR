@@ -1,0 +1,122 @@
+setwd("/Users/historiadores/Documents/Domingo/2017/haiti/graf_iniciales")
+a <- read.csv("appended_648.csv", header= TRUE,quote = "\"", skipNul = TRUE)
+
+par(mfrow=c(1,3))
+hist(a[,5], col= "red")
+hist(a[,7], col= "blue")
+hist(a[,8], col= "green")
+
+# subset estudio y control
+g_estudio <- subset(a,tipo =="est")
+g_control <- subset(a,tipo =="con")
+
+
+
+png( "graf_histogram_durac_voc_general.png") 
+# Histogramas de duración en los dos grupos
+par(mfrow=c(2,2))
+hist(g_estudio[,5], col= "red", main ="Duraciones en el g. de estudio",xlim=c(0.2,1.5), ylim=c(0,60))
+hist(g_control[,5], col= "green", main ="Duraciones en el g. control",xlim=c(0.2,1.5), ylim=c(0,60))
+
+# Histogramas de velocidades en los dos grupos
+hist(g_estudio[,7], col= "red", main ="Velocidades g. de estudio",xlim=c(4,18), ylim=c(0,70))
+hist(g_control[,7], col= "green", main ="Velocidades g. control",xlim=c(4,18), ylim=c(0,70))
+dev.off()
+
+
+# subset por número de sílabas
+g_estudio_1_silaba <- subset(g_estudio,silFonet=="1")
+g_estudio_2_silaba <- subset(g_estudio,silFonet=="2")
+g_estudio_3_silaba <- subset(g_estudio,silFonet=="3")
+g_estudio_4_silaba <- subset(g_estudio,silFonet=="4")
+
+g_control_1_silaba <- subset(g_control,silFonet=="1")
+g_control_2_silaba <- subset(g_control,silFonet=="2")
+g_control_3_silaba <- subset(g_control,silFonet=="3")
+g_control_4_silaba <- subset(g_control,silFonet=="4")
+
+# promedios
+x_estudio_vel_1_sil <- mean(g_estudio_1_silaba[,7])
+x_control_vel_1_sil <- mean(g_control_1_silaba[,7])
+x_estudio_vel_2_sil <- mean(g_estudio_2_silaba[,7])
+x_control_vel_2_sil <- mean(g_control_2_silaba[,7])
+x_estudio_vel_3_sil <- mean(g_estudio_3_silaba[,7])
+x_control_vel_3_sil <- mean(g_control_3_silaba[,7])
+x_estudio_vel_4_sil <- mean(g_estudio_4_silaba[,7])
+x_control_vel_4_sil <- mean(g_control_4_silaba[,7])
+
+# ploteo de promedios
+plot(c(x_estudio_vel_1_sil, x_control_vel_1_sil, x_estudio_vel_2_sil, x_control_vel_2_sil, x_estudio_vel_3_sil, x_control_vel_3_sil,x_estudio_vel_4_sil, x_control_vel_4_sil), ylim=c(5,15), ylab="velocidad",xlab="impar = estudio, par = control", main ="Promedios de velocidad")
+
+# Histogramas de velocidad por número de sílabas en los dos grupos
+png( "graf_histogram_veloc_silabas.png") 
+par(mfrow=c(2,4))
+hist(g_estudio_1_silaba[,7], col= "blue", main ="1 silaba (estudio)",xlim=c(5,17))
+hist(g_control_1_silaba[,7], col= "green", main ="1 silaba (control)",xlim=c(5,17))
+hist(g_estudio_2_silaba[,7], col= "blue", main ="2 silabas (estudio)",xlim=c(5,17))
+hist(g_control_2_silaba[,7], col= "green", main ="2 silabas (control)",xlim=c(5,17))
+hist(g_estudio_3_silaba[,7], col= "blue", main ="3 silabas (estudio)",xlim=c(5,17))
+hist(g_control_3_silaba[,7], col= "green", main ="3 silabas (control)",xlim=c(5,17))
+hist(g_estudio_4_silaba[,7], col= "blue", main ="4 silabas (estudio)",xlim=c(5,17))
+hist(g_control_4_silaba[,7], col= "green", main ="4 silabas (control)",xlim=c(5,17))
+dev.off()
+
+
+# boxplot de velocidad por número de sílabas en los dos grupos
+png( "graf_boxplot_veloc_silabas.png") 
+par(mfrow=c(2,2))
+boxplot((g_estudio_1_silaba[,7]),(g_control_1_silaba[,7]), col = "red",main ="Velocidad en palabras de 1 silabas")
+boxplot((g_estudio_2_silaba[,7]),(g_control_2_silaba[,7]), col= "blue",main ="Velocidad en palabras de 2 silabas")
+boxplot((g_estudio_3_silaba[,7]),(g_control_3_silaba[,7]), col= "green",main ="Velocidad en palabras de 3 silabas")
+boxplot((g_estudio_4_silaba[,7]),(g_control_4_silaba[,7]), col= "pink", main ="Velocidad en palabras de 4 silabas")
+dev.off()
+
+
+png( "graf_dens_veloc_silabas.png") 
+par(mfrow=c(2,4))
+densidad_s1_est <- density(g_estudio_1_silaba[,7])
+densidad_s1_con <- density(g_control_1_silaba[,7])
+densidad_s2_est <- density(g_estudio_2_silaba[,7])
+densidad_s2_con <- density(g_control_2_silaba[,7])
+densidad_s3_est <- density(g_estudio_3_silaba[,7])
+densidad_s3_con <- density(g_control_3_silaba[,7])
+densidad_s4_est <- density(g_estudio_4_silaba[,7])
+densidad_s4_con <- density(g_control_4_silaba[,7])
+
+
+# gráfico de densidades
+png( "graf_dens_veloc_silabas.png") 
+par(mfrow=c(2,4))
+plot(densidad_s1_est, main = "Vel. 1 s. est", xlim=c(5,17))
+polygon(densidad_s1_est, col ="blue")
+plot(densidad_s1_con, main = "Vel. 1 s. con", xlim=c(5,17))
+polygon(densidad_s1_con, col ="green")
+
+plot(densidad_s2_est, main = "Vel. 2 s. est", xlim=c(5,17))
+polygon(densidad_s2_est, col ="blue")
+plot(densidad_s2_con, main = "Vel. 2 s. con", xlim=c(5,17))
+polygon(densidad_s2_con, col ="green")
+
+plot(densidad_s3_est, main = "Vel. 3 s. est", xlim=c(5,17))
+polygon(densidad_s3_est, col ="blue")
+plot(densidad_s3_con, main = "Vel. 3 s. con", xlim=c(5,17))
+polygon(densidad_s3_con, col ="green")
+
+plot(densidad_s4_est, main = "Vel. 4 s. est", xlim=c(5,17))
+polygon(densidad_s4_est, col ="blue")
+plot(densidad_s4_con, main = "Vel. 4 s. con", xlim=c(5,17))
+polygon(densidad_s4_con, col ="green")
+dev.off()
+
+# stipchart
+png( "graf_stripchart_veloc_silabas.png") 
+par(mfrow=c(2,4))
+stripchart(g_estudio_1_silaba[,7], main ="G. estudio 1 s",xlim=c(5,17))
+stripchart(g_control_1_silaba[,7], main ="G. control 1 s",xlim=c(5,17))
+stripchart(g_estudio_2_silaba[,7], main ="G. estudio 2 s",xlim=c(5,17))
+stripchart(g_control_2_silaba[,7], main ="G. control 2 s",xlim=c(5,17))
+stripchart(g_estudio_3_silaba[,7], main ="G. estudio 3 s",xlim=c(5,17))
+stripchart(g_control_3_silaba[,7], main ="G. control 3 s",xlim=c(5,17))
+stripchart(g_estudio_4_silaba[,7], main ="G. estudio 4 s",xlim=c(5,17))
+stripchart(g_control_4_silaba[,7], main ="G. control 4 s",xlim=c(5,17))
+dev.off()
