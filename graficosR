@@ -1,4 +1,7 @@
 setwd("/Users/historiadores/Documents/Domingo/2017/haiti/graf_iniciales")
+
+setwd("/Users/historiadores/Documents/Domingo/2017/haiti/graf_iniciales")
+
 a <- read.csv("appended_648.csv", header= TRUE,quote = "\"", skipNul = TRUE)
 
 par(mfrow=c(1,3))
