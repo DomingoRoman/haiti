@@ -1,0 +1,31 @@
+# setwd("/Users/historiadores/Documents/Domingo/2017/haiti/graf_iniciales")
+
+setwd("/Users/imac/Documents/2017/haiti/graficos_data_general")
+cdat <- read.csv("931.table", header= TRUE,quote = "\"", skipNul = TRUE)
+
+cdat_5 <- (cdat[,5])
+summary(cdat)
+
+cdat_7 <- (cdat[,7])
+sd_7 <- sd(cdat_7)
+sd_7
+mean_7 <- mean(cdat_7)
+mean_7
+summary(cdat_7)
+
+# Los gráficos más generales 
+# Duraciones y velocidades de fonemas por segundo en total. Todos los datos están reunidos
+# para ver la consistencia y normalidad de los datos
+
+
+png( "graf_hist_durac_vel_general.png") 
+
+par(mfrow=c(1,2))
+
+hist(cdat_5, freq=FALSE, main ="Duraciones palabras (todas)", col ="azure1", xlab="Duraciones (s)")
+plot(function(cdat_5)dnorm(cdat_5, mean= 0.6957, sd=0.2242193), col ="blue", 0,3, add=TRUE)
+
+hist(cdat_7, freq=FALSE, main ="Velocidades palabras (todas)", col ="bisque2", xlab="Velocidad fono/seg")
+plot(function(cdat_7)dnorm(cdat_7, mean= mean_7, sd=sd_7), col ="blue", 0,25, add=TRUE)
+
+dev.off()
