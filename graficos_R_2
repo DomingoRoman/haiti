@@ -4,28 +4,81 @@ setwd("/Users/imac/Documents/2017/haiti/graficos_data_general")
 cdat <- read.csv("931.table", header= TRUE,quote = "\"", skipNul = TRUE)
 
 cdat_5 <- (cdat[,5])
-summary(cdat)
+
 
 cdat_7 <- (cdat[,7])
 sd_7 <- sd(cdat_7)
-sd_7
 mean_7 <- mean(cdat_7)
-mean_7
-summary(cdat_7)
 
-# Los gráficos más generales 
-# Duraciones y velocidades de fonemas por segundo en total. Todos los datos están reunidos
+cdat_8 <- (cdat[,8])
+sd_8 <- sd(cdat_8)
+mean_8 <- mean(cdat_8)
+
+
+# Los tres histogramas de todos los datos
+# Duraciones y velocidades de fonemas y sílabas por segundo en total. Todos los datos están reunidos
 # para ver la consistencia y normalidad de los datos
-
 
 png( "graf_hist_durac_vel_general.png") 
 
-par(mfrow=c(1,2))
+par(mfrow=c(1,3))
 
-hist(cdat_5, freq=FALSE, main ="Duraciones palabras (todas)", col ="azure1", xlab="Duraciones (s)")
+hist(cdat_5, freq=FALSE, main ="Duraciones palabras (todas)", col ="azure1", xlab="segundos")
 plot(function(cdat_5)dnorm(cdat_5, mean= 0.6957, sd=0.2242193), col ="blue", 0,3, add=TRUE)
 
-hist(cdat_7, freq=FALSE, main ="Velocidades palabras (todas)", col ="bisque2", xlab="Velocidad fono/seg")
+hist(cdat_7, freq=FALSE, main ="Velocidades palabras (todas)", col ="bisque2", xlab="sonidos/seg")
 plot(function(cdat_7)dnorm(cdat_7, mean= mean_7, sd=sd_7), col ="blue", 0,25, add=TRUE)
 
+
+hist(cdat_8, freq=FALSE, main ="Velocidades palabras (todas)", col ="lavenderblush3", xlab="sil/seg")
+plot(function(cdat_8)dnorm(cdat_8, mean= mean_8, sd=sd_8), col ="blue", 0,10, add=TRUE)
+
 dev.off()
+
+
+quartz()
+
+# análisis por grupo. 
+# subsets estudio y control
+
+# subset estudio y control
+
+g_estudio <- subset(cdat,tipo =="est")
+g_control <- subset(cdat,tipo =="con")
+
+
+######## g. de estudio #############################################
+# Los tres histogramas de todos los datos en el grupo de estudio.
+# Duraciones y velocidades de fonemas y sílabas por segundo en total.
+####################################################################
+
+g_estudio_5 <- (g_estudio[,5])
+sd_g_est_5 <- sd(g_estudio_5)
+mean_g_est_5 <- mean(g_estudio_5)
+
+g_estudio_7 <- (g_estudio[,7])
+sd_g_est_7 <- sd(g_estudio_7)
+mean_g_est_7 <- mean(g_estudio_7)
+
+g_estudio_8 <- (g_estudio[,8])
+sd_g_est_8 <- sd(g_estudio_8)
+mean_g_est_8 <- mean(g_estudio_8)
+
+
+png( "graf_EST_hist_durac_vel_general.png") 
+
+par(mfrow=c(1,3))
+
+hist(g_estudio_5, freq=FALSE, main ="Duraciones palabras (todas)", col ="azure1", xlab="segundos")
+plot(function(g_estudio_5)dnorm(g_estudio_5, mean= mean_g_est_5, sd=sd_g_est_5), col ="blue", 0,3, add=TRUE)
+
+hist(g_estudio_7, freq=FALSE, main ="Velocidades palabras (todas)", col ="bisque2", xlab="sonidos/seg")
+plot(function(g_estudio_7)dnorm(g_estudio_7, mean= mean_g_est_7, sd=sd_g_est_7), col ="blue", 0,12, add=TRUE)
+
+hist(g_estudio_8, freq=FALSE, main ="Velocidades palabras (todas)", col ="lavenderblush3", xlab="sil/seg")
+plot(function(g_estudio_8)dnorm(g_estudio_8, mean= mean_g_est_8, sd=sd_g_est_8), col ="blue", 0,10, add=TRUE)
+
+dev.off()
+
+
+quartz()
