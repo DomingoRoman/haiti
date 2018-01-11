@@ -1,0 +1,61 @@
+# al guardar los datos en Excel, borré las columnas con palabras
+# usé datos separados por tab, con encabezado
+
+setwd("/Users/imac/Documents/2017/haiti/graficos_data_general")
+perce <- read.csv("percep.csv", header= FALSE)
+
+# subset estudio y control
+perce_est <- subset(perce,tipo=="e")
+perce_con <- subset(perce,tipo=="c")
+
+# palabras con...
+#1. ere intervocalica
+#2. ele intervocalica
+#3. ele inicial
+#4. distractor
+#5. erre intervocalica
+#6. erre inicial
+
+# subsets por fenómeno en la palabra y grupo
+perce_est_1 <- subset(perce_est,feno=="1")
+perce_est_2 <- subset(perce_est,feno=="2")
+perce_est_3 <- subset(perce_est,feno=="3")
+perce_est_3 <- subset(perce_est,feno=="4")
+perce_est_5 <- subset(perce_est,feno=="5")
+perce_con_1 <- subset(perce_con,feno=="1")
+perce_con_2 <- subset(perce_con,feno=="2")
+perce_con_3 <- subset(perce_con,feno=="3")
+perce_con_3 <- subset(perce_con,feno=="4")
+perce_con_5 <- subset(perce_con,feno=="5")
+
+par(mfrow=c(3,2))
+hist(perce_est_1[,4])
+hist(perce_con_1[,4])
+hist(perce_est_1[,5])
+hist(perce_con_1[,5])
+hist(perce_est_1[,6])
+hist(perce_con_1[,6])
+
+par(mfrow=c(3,2))
+hist(perce_est_2[,4])
+hist(perce_con_2[,4])
+hist(perce_est_2[,5])
+hist(perce_con_2[,5])
+hist(perce_est_2[,6])
+hist(perce_con_2[,6])
+
+par(mfrow=c(3,2))
+hist(perce_est_3[,4])
+hist(perce_con_3[,4])
+hist(perce_est_3[,5])
+hist(perce_con_3[,5])
+hist(perce_est_3[,6])
+hist(perce_con_3[,6])
+
+par(mfrow=c(3,2))
+hist(perce_est_5[,4])
+hist(perce_con_5[,4])
+hist(perce_est_5[,5])
+hist(perce_con_5[,5])
+hist(perce_est_5[,6])
+hist(perce_con_5[,6])
