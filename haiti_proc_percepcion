@@ -2,7 +2,7 @@
 # usé datos separados por tab, con encabezado
 
 setwd("/Users/imac/Documents/2017/haiti/graficos_data_general")
-perce <- read.csv("percep.csv", header= FALSE)
+perce <- read.table("percep_v2.txt", header= TRUE)
 
 # subset estudio y control
 perce_est <- subset(perce,tipo=="e")
