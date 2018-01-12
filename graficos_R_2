@@ -2,15 +2,11 @@ setwd("/Users/historiadores/Documents/Domingo/2017/haiti/graf_iniciales")
 
 # setwd("/Users/imac/Documents/2017/haiti/graficos_data_general")
 
-cdat <- read.csv("931.table", header= TRUE,quote = "\"", skipNul = TRUE)
-
+cdat <- read.csv("1020.table", header= TRUE,quote = "\"", skipNul = TRUE)
 cdat_5 <- (cdat[,5])
-
-
 cdat_7 <- (cdat[,7])
 sd_7 <- sd(cdat_7)
 mean_7 <- mean(cdat_7)
-
 cdat_8 <- (cdat[,8])
 sd_8 <- sd(cdat_8)
 mean_8 <- mean(cdat_8)
@@ -29,7 +25,6 @@ plot(function(cdat_5)dnorm(cdat_5, mean= 0.6957, sd=0.2242193), col ="blue", 0,3
 
 hist(cdat_7, freq=FALSE, main ="Velocidades palabras (todas)", col ="bisque2", xlab="sonidos/seg")
 plot(function(cdat_7)dnorm(cdat_7, mean= mean_7, sd=sd_7), col ="blue", 0,25, add=TRUE)
-
 
 hist(cdat_8, freq=FALSE, main ="Velocidades palabras (todas)", col ="lavenderblush3", xlab="sil/seg")
 plot(function(cdat_8)dnorm(cdat_8, mean= mean_8, sd=sd_8), col ="blue", 0,10, add=TRUE)
@@ -148,27 +143,27 @@ densidad_s4_con <- density(g_control_4_silaba[,7])
 # Histogramas de velocidad por número de sílabas en los dos grupos
 png("graf_histogram_veloc_1_silaba.png") 
 par(mfrow=c(1,2))
-hist(g_estudio_1_silaba[,7], col= "blue", main ="1 silaba (estudio)",xlim=c(5,20))
-hist(g_control_1_silaba[,7], col= "green", main ="1 silaba (control)",xlim=c(5,20))
+hist(g_estudio_1_silaba[,7], col= "blue", main ="1 silaba (estudio)",xlim=c(5,20),xlab="Velocidad son/seg")
+hist(g_control_1_silaba[,7], col= "green", main ="1 silaba (control)",xlim=c(5,20),xlab="Velocidad son/seg")
 dev.off()
 
 
 png("graf_histogram_veloc_2_silaba.png") 
 par(mfrow=c(1,2))
-hist(g_estudio_2_silaba[,7], col= "blue", main ="2 silabas (estudio)",xlim=c(5,20))
-hist(g_control_2_silaba[,7], col= "green", main ="2 silabas (control)",xlim=c(5,20))
+hist(g_estudio_2_silaba[,7], col= "blue", main ="2 silabas (estudio)",xlim=c(5,20),xlab="Velocidad son/seg")
+hist(g_control_2_silaba[,7], col= "green", main ="2 silabas (control)",xlim=c(5,20),xlab="Velocidad son/seg")
 dev.off()
 
 png("graf_histogram_veloc_3_silaba.png") 
 par(mfrow=c(1,2))
-hist(g_estudio_3_silaba[,7], col= "blue", main ="3 silabas (estudio)",xlim=c(5,20))
-hist(g_control_3_silaba[,7], col= "green", main ="3 silabas (control)",xlim=c(5,20))
+hist(g_estudio_3_silaba[,7], col= "blue", main ="3 silabas (estudio)",xlim=c(5,20),xlab="Velocidad son/seg")
+hist(g_control_3_silaba[,7], col= "green", main ="3 silabas (control)",xlim=c(5,20),xlab="Velocidad son/seg")
 dev.off()
 
 png("graf_histogram_veloc_4_silaba.png") 
 par(mfrow=c(1,2))
-hist(g_estudio_4_silaba[,7], col= "blue", main ="4 silabas (estudio)",xlim=c(5,20))
-hist(g_control_4_silaba[,7], col= "green", main ="4 silabas (control)",xlim=c(5,20))
+hist(g_estudio_4_silaba[,7], col= "blue", main ="4 silabas (estudio)",xlim=c(5,20),xlab="Velocidad son/seg")
+hist(g_control_4_silaba[,7], col= "green", main ="4 silabas (control)",xlim=c(5,20),xlab="Velocidad son/seg")
 dev.off()
 
 
