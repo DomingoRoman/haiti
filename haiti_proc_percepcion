@@ -1,14 +1,38 @@
 # al guardar los datos en Excel, borré las columnas con palabras
+
 # usé datos separados por tab, con encabezado
 
 setwd("/Users/imac/Documents/2017/haiti/graficos_data_general")
 perce <- read.table("percep_v2.txt", header= TRUE)
 
-# subset estudio y control
-perce_est <- subset(perce,tipo=="e")
-perce_con <- subset(perce,tipo=="c")
+# excluir los sin respuesta
 
-# palabras con...
+# subset estudio y control
+
+
+
+perce_resp0 <- subset(perce,ns==0)
+ncasos0 <- nrow(perce_resp0)
+
+perce_resp1 <- subset(perce,ns==1)
+ncasos1 <- nrow(perce_resp1)
+
+summary(perce_resp1)
+
+
+
+
+
+# subset estudio y control
+
+perce_est <- subset(perce_resp0,tipo=="e")
+perce_con <- subset(perce_resp0,tipo=="c")
+
+n_casos_e  <- nrow(perce_est)
+n_casos_c <- nrow(perce_con)
+
+# palabras con... casos
+
 #1. ere intervocalica
 #2. ele intervocalica
 #3. ele inicial
@@ -17,45 +41,98 @@ perce_con <- subset(perce,tipo=="c")
 #6. erre inicial
 
 # subsets por fenómeno en la palabra y grupo
+
 perce_est_1 <- subset(perce_est,feno=="1")
 perce_est_2 <- subset(perce_est,feno=="2")
 perce_est_3 <- subset(perce_est,feno=="3")
-perce_est_3 <- subset(perce_est,feno=="4")
+perce_est_4 <- subset(perce_est,feno=="4")
 perce_est_5 <- subset(perce_est,feno=="5")
+perce_est_6 <- subset(perce_con,feno=="6")
 perce_con_1 <- subset(perce_con,feno=="1")
 perce_con_2 <- subset(perce_con,feno=="2")
 perce_con_3 <- subset(perce_con,feno=="3")
-perce_con_3 <- subset(perce_con,feno=="4")
+perce_con_4 <- subset(perce_con,feno=="4")
 perce_con_5 <- subset(perce_con,feno=="5")
+perce_con_6 <- subset(perce_con,feno=="6")
+
+
+# La columna delta tiene los aciertos: la resta de correctas - incorrectas
+
+perce_n_1 <- subset(perce_est_1,delta==1)
+perce_n_1 <- nrow(perce_est_1)
+
+perce_n_2 <- subset(perce_est_2,delta==1)
+perce_n_2 <- nrow(perce_est_2)
+
+perce_n_3 <- subset(perce_est_1,delta==3)
+perce_n_3 <- nrow(perce_est_3)
+
+perce_n_4 <- subset(perce_est_4,delta==1)
+perce_n_4 <- nrow(perce_est_4)
+
+perce_n_5 <- subset(perce_est_5,delta==1)
+perce_n_5 <- nrow(perce_est_5)
+
+perce_n_6 <- subset(perce_est_6,delta==1)
+perce_n_6 <- nrow(perce_est_6)
+
+
+par(mfrow=c(1,1))
+barplot(c(perce_n_1,perce_n_2, perce_n_3, perce_n_5, perce_n_6),names.arg=c("-R-","-L-","L-","-RR-","RR-"), main = "Cantidades de aciertos en percepcion", sub="Grupo de estudio", col = "blue")
+
+
+# excluir los casos ns
+
 
 par(mfrow=c(3,2))
-hist(perce_est_1[,4])
-hist(perce_con_1[,4])
-hist(perce_est_1[,5])
-hist(perce_con_1[,5])
-hist(perce_est_1[,6])
-hist(perce_con_1[,6])
+
+plot(perce_est_1[,5])
+barplot(perce_est_2[,5])
+barplot(perce_est_3[,5])
+barplot(perce_est_4[,5])
+barplot(perce_est_5[,5])
+barplot(perce_est_6[,5])
 
 par(mfrow=c(3,2))
+
 hist(perce_est_2[,4])
 hist(perce_con_2[,4])
 hist(perce_est_2[,5])
+
 hist(perce_con_2[,5])
+
 hist(perce_est_2[,6])
+
 hist(perce_con_2[,6])
 
-par(mfrow=c(3,2))
-hist(perce_est_3[,4])
-hist(perce_con_3[,4])
-hist(perce_est_3[,5])
-hist(perce_con_3[,5])
-hist(perce_est_3[,6])
-hist(perce_con_3[,6])
+
 
 par(mfrow=c(3,2))
+
+hist(perce_est_3[,4])
+
+hist(perce_con_3[,4])
+
+hist(perce_est_3[,5])
+
+hist(perce_con_3[,5])
+
+hist(perce_est_3[,6])
+
+hist(perce_con_3[,6])
+
+
+
+par(mfrow=c(3,2))
+
 hist(perce_est_5[,4])
+
 hist(perce_con_5[,4])
+
 hist(perce_est_5[,5])
+
 hist(perce_con_5[,5])
+
 hist(perce_est_5[,6])
+
 hist(perce_con_5[,6])
