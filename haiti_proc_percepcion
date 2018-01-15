@@ -2,26 +2,27 @@
 
 # usé datos separados por tab, con encabezado
 
-setwd("/Users/imac/Documents/2017/haiti/graficos_data_general")
-perce <- read.table("percep_v2.txt", header= TRUE)
+#setwd("/Users/imac/Documents/2017/haiti/graficos_data_general")
+
+setwd("/Users/historiadores/Documents/Domingo/2017/haiti/percepcion")
+
+perce <- read.csv("percep_v2.csv", header= TRUE)
 
 # excluir los sin respuesta
 
-# subset estudio y control
+
+
+perce_resp_nsa_0 <- subset(perce,nsa==0)
+nsa_casos0 <- nrow(perce_resp_nsa_0)
+nsa_casos0
+perce_resp_nsa_1 <- subset(perce,nsa==1)
+nsa_casos1 <- nrow(perce_resp_nsa_1)
+nsa_casos1
 
 
 
-perce_resp0 <- subset(perce,ns==0)
-ncasos0 <- nrow(perce_resp0)
-
-perce_resp1 <- subset(perce,ns==1)
-ncasos1 <- nrow(perce_resp1)
-
-summary(perce_resp1)
-
-
-
-
+summary(perce_resp_nsa_0)
+summary(perce_resp_nsa_1)
 
 # subset estudio y control
 
@@ -30,6 +31,7 @@ perce_con <- subset(perce_resp0,tipo=="c")
 
 n_casos_e  <- nrow(perce_est)
 n_casos_c <- nrow(perce_con)
+
 
 # palabras con... casos
 
@@ -40,8 +42,8 @@ n_casos_c <- nrow(perce_con)
 #5. erre intervocalica
 #6. erre inicial
 
-# subsets por fenómeno en la palabra y grupo
 
+# subsets por fenómeno en la palabra y grupo
 perce_est_1 <- subset(perce_est,feno=="1")
 perce_est_2 <- subset(perce_est,feno=="2")
 perce_est_3 <- subset(perce_est,feno=="3")
@@ -56,25 +58,153 @@ perce_con_5 <- subset(perce_con,feno=="5")
 perce_con_6 <- subset(perce_con,feno=="6")
 
 
-# La columna delta tiene los aciertos: la resta de correctas - incorrectas
 
+# La columna delta tiene los aciertos: la resta de correctas - incorrectas
 perce_n_1 <- subset(perce_est_1,delta==1)
-perce_n_1 <- nrow(perce_est_1)
+perce_n_1 <- nrow(perce_n_1)
+perce_n_1
+perce_n_1_nsa_1 <- subset(perce_est_1,nsa==1)
+perce_n_1_nsa_1 <- nrow(perce_n_1_nsa_1)
+perce_n_1_nsa_1
+
+
 perce_n_2 <- subset(perce_est_2,delta==1)
-perce_n_2 <- nrow(perce_est_2)
+perce_n_2 <- nrow(perce_n_2)
+perce_n_2
+perce_n_2_nsa_1 <- subset(perce_est_2,nsa==1)
+perce_n_2_nsa_1 <- nrow(perce_n_2_nsa_1)
+perce_n_2_nsa_1
+
 perce_n_3 <- subset(perce_est_1,delta==1)
 perce_n_3 <- nrow(perce_est_3)
+perce_n_3
+perce_n_3_nsa_1 <- subset(perce_est_3,nsa==1)
+perce_n_3_nsa_1 <- nrow(perce_n_3_nsa_1)
+perce_n_3_nsa_1
+
 perce_n_4 <- subset(perce_est_4,delta==1)
 perce_n_4 <- nrow(perce_est_4)
+perce_n_4_nsa_1 <- subset(perce_est_4,nsa==1)
+perce_n_4_nsa_1 <- nrow(perce_n_4_nsa_1)
+perce_n_4_nsa_1
+
 perce_n_5 <- subset(perce_est_5,delta==1)
 perce_n_5 <- nrow(perce_est_5)
+perce_n_5
+perce_n_5_nsa_1 <- subset(perce_est_5,nsa==1)
+perce_n_5_nsa_1 <- nrow(perce_n_5_nsa_1)
+perce_n_5_nsa_1
+
+
 perce_n_6 <- subset(perce_est_6,delta==1)
 perce_n_6 <- nrow(perce_est_6)
+perce_n_6
+perce_n_6_nsa_1 <- subset(perce_est_6,nsa==1)
+perce_n_6_nsa_1 <- nrow(perce_n_6_nsa_1)
+perce_n_6_nsa_1
+
+
 
 par(mfrow=c(1,1))
-barplot(c(perce_n_1,perce_n_2, perce_n_3, perce_n_5, perce_n_6),names.arg=c("-R-","-L-","L-","-RR-","RR-"), main = "Cantidades de aciertos en percepcion", sub="Grupo de estudio", col = "blue")
 
-cantidad_aciertos <- (c(perce_n_1,perce_n_2, perce_n_3, perce_n_5, perce_n_6))
+barplot(c(perce_n_1,perce_n_2, perce_n_3,  perce_n_4, perce_n_5, perce_n_6),names.arg=c("-R-","-L-","L-","DTCTR","-RR-","RR-"), main = "Cantidades de aciertos en percepcion", sub="Grupo de estudio", col = "blue")
 
-barplot(sort(cantidad_aciertos),names.arg=c("L-","-L-","-R-","RR-","-RR-"), main = "Cantidades de aciertos en percepcion", sub="Grupo de estudio", col = "blue")
+cantidad_aciertos <- (c(perce_n_1,perce_n_2, perce_n_3, perce_n_4, perce_n_5, perce_n_6))
+quartz()
+barplot(sort(cantidad_aciertos, decreasing=TRUE),names.arg=c("Distractor", "--RR--", "RR--", "--R--", "L--","--L--"), main = "Cantidades de aciertos en percepcion", sub="Grupo de estudio", col = "thistle3")
+
+
+
+
+
+# SIN excluir a los sin respuesta
+
+perce <- read.csv("percep_v2.csv", header= TRUE)
+
+# subset estudio y control
+
+perce_est <- subset(perce,tipo=="e")
+perce_con <- subset(perce,tipo=="c")
+
+# subsets por fenómeno en la palabra y grupo
+perce_est_1 <- subset(perce_est,feno=="1")
+perce_est_2 <- subset(perce_est,feno=="2")
+perce_est_3 <- subset(perce_est,feno=="3")
+perce_est_4 <- subset(perce_est,feno=="4")
+perce_est_5 <- subset(perce_est,feno=="5")
+perce_est_6 <- subset(perce_con,feno=="6")
+perce_con_1 <- subset(perce_con,feno=="1")
+perce_con_2 <- subset(perce_con,feno=="2")
+perce_con_3 <- subset(perce_con,feno=="3")
+perce_con_4 <- subset(perce_con,feno=="4")
+perce_con_5 <- subset(perce_con,feno=="5")
+perce_con_6 <- subset(perce_con,feno=="6")
+
+
+
+
+
+
+
+### Otra forma de ver la percepción
+### Creacion de una matriz
+
+perce_1p <- subset(perce_est_1,delta==1)
+perce_1n <- subset(perce_est_1,delta==-1)
+perce_1_0 <- subset(perce_est_1,nsa==1)
+perce_n_1p <- nrow(perce_1p)
+perce_n_1n <- nrow(perce_1n)
+perce_n_1_0 <- nrow(perce_1_0)
+
+perce_2p <- subset(perce_est_2,delta==1)
+perce_2n <- subset(perce_est_2,delta==-1)
+perce_2_0 <- subset(perce_est_2,nsa==1)
+perce_n_2p <- nrow(perce_2p)
+perce_n_2n <- nrow(perce_2n)
+perce_n_2_0 <- nrow(perce_2_0)
+
+perce_3p <- subset(perce_est_3,delta==1)
+perce_3n <- subset(perce_est_3,delta==-1)
+perce_3_0 <- subset(perce_est_3,nsa==1)
+perce_n_3p <- nrow(perce_3p)
+perce_n_3n <- nrow(perce_3n)
+perce_n_3_0 <- nrow(perce_3_0)
+
+perce_4p <- subset(perce_est_4,delta==1)
+perce_4n <- subset(perce_est_4,delta==-1)
+perce_4_0 <- subset(perce_est_4,nsa==1)
+perce_n_4p <- nrow(perce_4p)
+perce_n_4n <- nrow(perce_4n)
+perce_n_4_0 <- nrow(perce_4_0)
+
+perce_5p <- subset(perce_est_5,delta==1)
+perce_5n <- subset(perce_est_5,delta==-1)
+perce_5_0 <- subset(perce_est_5,nsa==1)
+perce_n_5p <- nrow(perce_5p)
+perce_n_5n <- nrow(perce_5n)
+perce_n_5_0 <- nrow(perce_5_0)
+
+perce_6p <- subset(perce_est_6,delta==1)
+perce_6n <- subset(perce_est_6,delta==-1)
+perce_6_0 <- subset(perce_est_6,nsa==1)
+perce_n_6p <- nrow(perce_6p)
+perce_n_6n <- nrow(perce_6n)
+perce_n_6_0 <- nrow(perce_6_0)
+
+perce_n_6_0
+perce_n_5_0
+perce_n_4_0
+perce_n_3_0
+perce_n_2_0
+perce_n_1_0
+
+perce_mtx <-matrix(c(perce_n_1p,perce_n_1n,perce_n_1_0, perce_n_2p,perce_n_2n,perce_n_2_0,perce_n_3p,perce_n_3n,perce_n_3_0, perce_n_4p,perce_n_4n,perce_n_4_0,perce_n_5p,perce_n_5n,perce_n_5_0, perce_n_6p,perce_n_6n,perce_n_6_0),nrow=6,byrow=T)
+
+colnames(perce_mtx) <- c("correctas", "incorrectas","sin respuesta")
+rownames(perce_mtx) <- (c("ere interv","ele interv","ele inic","Distrac","erre interv","erre inic"))
+
+#Trasponer la matriz
+matriz <- t(perce_mtx)
+
+barplot(matriz, main = "Aciertos, errores y sin respuesta (por casos)",xlab="casos",col = c("darkolivegreen2","lightskyblue4","azure"))
 
