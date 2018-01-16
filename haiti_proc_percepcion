@@ -206,5 +206,8 @@ rownames(perce_mtx) <- (c("ere interv","ele interv","ele inic","Distrac","erre i
 #Trasponer la matriz
 matriz <- t(perce_mtx)
 
-barplot(matriz, main = "Aciertos, errores y sin respuesta (por casos)",xlab="casos",col = c("darkolivegreen2","lightskyblue4","azure"))
-
+barplot(matriz, main = "Aciertos, errores y sin respuesta",
+		xlab="casos",col = c("darkolivegreen2","lightskyblue4","azure"))
+legend("topleft", 
+       legend = c("Correctas", "Incorrectas", "No conoce"), 
+       fill = c("darkolivegreen2", "lightskyblue4", "azure"))
